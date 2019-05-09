@@ -1,3 +1,3 @@
 #!/bin/sh
-cd /home/bufali/puppet-book
+cd /home/bufanli/puppet-book
 git pull && /usr/local/bin/papply
