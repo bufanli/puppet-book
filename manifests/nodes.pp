@@ -1,10 +1,15 @@
 $lunch = ['egg','beans','chips']
-node 'master'{
+node 'server' {
+}
+node 'master' inherits 'server'{
 	file { '/tmp/hello':
 		content => "hello,master\n",
 	}
 	include puppet
 	include memcached 
+	if tagged('server'){
+		notify{'this is a server tag':}
+	}
 	lunchprint {$lunch:}
 }
 node 'slave'{
