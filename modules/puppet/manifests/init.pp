@@ -3,6 +3,14 @@ class puppet{
 		'name' => 'eth0',
 		'address' => '192.168.100.101',
 		}
+	$ipaddresses = [
+		'192.168.100.1',
+		'158.43.128.1',
+		'10.0.75.207',
+	]
+	file { '/tmp/addresslist.txt':
+		content => template('puppet/addresslist.erb')
+	}
 	notify { "Interface ${interface['name']} has address
 			${interface['address']}" :}
 	if $::operatingsystem == 'ubuntu' {
@@ -53,5 +61,15 @@ class puppet{
 	tag ('big-server')
 	if tagged('big-server'){
 		notify { "this is a big server" : }
+	}
+	class {'eventmachine':
+		version => '1.0.3',
+	}
+	$ssh_service = $::operatingsystem?{
+		/Ubuntu|Debian/ => 'ssh',
+		default	=> 'sshd',
+	}
+	service {$ssh_service:
+		ensure => running,
 	}
 }
