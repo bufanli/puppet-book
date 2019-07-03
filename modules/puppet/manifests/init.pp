@@ -22,6 +22,14 @@ class puppet{
 			notify { $::lsbdistdescription:}
 		}
 	}
+	define tmpFile ($greeting){
+		file { "/tmp/${name}":
+			content => $greeting,
+		}
+	}
+	tmpFile { 'test_define':
+			greeting => "hello, define",
+	}
 	file { '/usr/local/bin/papply':
 		source => 'puppet:///modules/puppet/papply.sh',
 		mode => '0755',
