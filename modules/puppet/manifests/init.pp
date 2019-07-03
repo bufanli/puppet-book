@@ -1,4 +1,10 @@
-class puppet {
+class puppet{
+	$interface = {
+		'name' => 'eth0',
+		'address' => '192.168.100.101',
+		}
+	notify { "Interface ${interface['name']} has address
+			${interface['address']}" :}
 	file { '/usr/local/bin/papply':
 		source => 'puppet:///modules/puppet/papply.sh',
 		mode => '0755',
