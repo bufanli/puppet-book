@@ -11,6 +11,17 @@ class puppet{
 		notify { 'non ubuntu system detected': }
 		notify { "this is $::operatingsystem os":}
 	}
+	case $::lsbdistdescription {
+		/Ubuntu (.+)/: {
+			notify{ "you have ubuntu version ${1}":}
+		}
+		/CentOS(.+)/: {
+			notify{ "you have centos version ${1}":}
+		}
+		default:{
+			notify { $::lsbdistdescription:}
+		}
+	}
 	file { '/usr/local/bin/papply':
 		source => 'puppet:///modules/puppet/papply.sh',
 		mode => '0755',
