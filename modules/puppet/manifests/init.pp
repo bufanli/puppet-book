@@ -50,4 +50,8 @@ class puppet{
 		minute => '*/10',
 		hour => '*',
 	}
+	tag ('big-server')
+	if tagged('big-server'){
+		notify { "this is a big server" : }
+	}
 }
