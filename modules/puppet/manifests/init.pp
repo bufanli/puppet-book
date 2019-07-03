@@ -5,6 +5,12 @@ class puppet{
 		}
 	notify { "Interface ${interface['name']} has address
 			${interface['address']}" :}
+	if $::operatingsystem == 'ubuntu' {
+		notify{ 'running on ubuntu':}
+	}else {
+		notify { 'non ubuntu system detected': }
+		notify { "this is $::operatingsystem os":}
+	}
 	file { '/usr/local/bin/papply':
 		source => 'puppet:///modules/puppet/papply.sh',
 		mode => '0755',
